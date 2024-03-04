@@ -15,7 +15,7 @@ struct Random_number
 struct User
 {
     char name[20];
-    float lucky_ratio;
+    float ratio;
 };
 
 int generate_number()

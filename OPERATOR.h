@@ -14,7 +14,7 @@ void array_sort(struct User temp[])
     {
         for(int j = 0 ; j < count - i ; ++j)
         {
-            if(temp[j].lucky_ratio > temp[j + 1].lucky_ratio)
+            if(temp[j].ratio > temp[j + 1].ratio)
             {
                 printf("SWAP\n");
                 swap(&temp[j] ,&temp[j + 1]);
@@ -40,7 +40,7 @@ void print_list()
     {
         printf("___________\n");
         printf("NAME: %s\n",temp[i].name);
-        printf("RATIO: %.2f\n",temp[i].lucky_ratio);
+        printf("RATIO: %.2f\n",temp[i].ratio);
     }
 }
 
@@ -61,7 +61,7 @@ void start_operator()
 
             strcpy(player[count].name,name);
             int random = generate_number();
-            player[count].lucky_ratio = (float)(6 - guess_number(random))/6;
+            player[count].ratio = (float)(6 - guess_number(random))/6;
             return;
         }
         else if (strcmp(option,"no") == 0)
