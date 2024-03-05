@@ -1,20 +1,14 @@
-#include <stdio.h>
-
+#include "DATA.h"
 
 // ! FILE HANDLE
 // ! ONLY NEED FILE PATH TO PRINT USER 
 //!  ONLY NEED FILE PATH TO GET USER
 
-char *path = "C:/Users/Aniara/Desktop/MOCK_OFFICIAL/file_handle.txt";
+char *path = "C:/Users/Aniara/Desktop/MOCK_OFFICIAL/SAVE.txt";
+
 #define MAX_USER_PRINT 5
 
-//! STANDARD STRUCT , DID'NT CHANGE
-struct User
-{
-    char name[20]; // NAME OF USER
-    float ratio;   // LUCKY RATIO OF USER
-    int number;    // NUMBER OF USER IN FILE
-};
+int is_file_empty();
 
 struct User user[100]; // ARRAY OF STRUCT USER TO READ FILE , ADD USER TO ARRAY FOR SORT FROM HIGH TO LOW
 
@@ -53,9 +47,14 @@ int get_last_number_from_file()
 
     if (file == NULL)
     {
-        printf("NO SUCH FILE\n");
-        return -1;
+        printf("FISRT USER\n");
+        return 0;
     }
+    else if(is_file_empty() == 1)
+    {
+        return 0;
+    }
+    else;
 
     int last_number; // ! Lấy giá trị cuối cùng từ file
                      // TODO Giá trị lấy về để tạo mảng lưu giá trị từ file
@@ -84,21 +83,21 @@ void write_user_to_file(struct User user) // * AGRUMENT IS USER.
         return;
     }
 
-    fprintf(file, "%s %f %d", user.name, user.ratio, user.number);
+    fprintf(file, "%s %.2f %d", user.name, user.ratio, user.number);
     fclose(file);
 }
 
 //*############################################################
-//! --------------Kind of TESTING -----------------
+//! -------------------INPUT USER TO FILE---------------------
 //*############################################################
 
-void type_user() //* FUNCTION TO TYPE AND SAVE USER TO STRUCT "TEMP"
+void input_user_to_file(char name[] , float ratio) //* FUNCTION TO TYPE AND SAVE USER TO STRUCT "TEMP"
 {
-    struct User temp;
-    scanf("%s", temp.name);
-    scanf("%f", &temp.ratio);
-    scanf("%d", &temp.number);
-    write_user_to_file(temp);
+    struct User new_user;
+    strcpy(new_user.name,name);
+    new_user.number = get_last_number_from_file();
+    new_user.ratio = ratio;
+    write_user_to_file(new_user);
 }
 
 //*############################################################
@@ -140,7 +139,9 @@ void selection_sort(struct User arr[],int last_number)
         }
     }
 }
-// ! PRINT LIST FUCNTION
+//*############################################################
+//! ---------------SORT AND PRINT LIST FUCNTION----------------
+//*############################################################
 void print_player_with_sort(int last_number)
 {
     struct User temp[last_number];
@@ -157,47 +158,30 @@ void print_player_with_sort(int last_number)
     }
     for(int i = last_number - 1; i >=  top_five ; --i)
     {
-        printf("%s\n", temp[i].name);
-        printf("%.2f\n", temp[i].ratio);
+        printf("__________\n");
+        printf("NAME :%s\n", temp[i].name);
+        printf("RATIO:%.2f\n", temp[i].ratio);
+        printf("----------\n");
     }
 }
 
-// TEST MAIN
-int main()
-{
-   /* int n = get_last_number_from_file();
-    struct User array[n];
-    get_all_user_from_file_to_array(array, n);
-    for (int i = 0; i < n; ++i)
-    {
-        printf("%d\n", array[i].number);
-        printf("%s\n", array[i].name);
-        printf("%.2f\n", array[i].ratio);
-    }
-    */
-// TODO ADD more user
-/*
-int choice;
-while(1)
-{
-    scanf(" %d",&choice);
-    if(choice == 1)
-    {
-        type_user();
-    }
-    else
-    {
-        break;
-    }
-}
-*/
-// TODO Clear File
-/*
-clear_file();
-    return 0;
-*/
-int n = get_last_number_from_file();
-print_player_with_sort(n);
+//*############################################################
+//! ------------------CHECK IF FILE IS EMPTY-------------------
+//*############################################################
 
-return 0;
+int is_file_empty()
+{
+    FILE *file = fopen(path, "r");
+    if (file == NULL)
+    {
+        printf("Khong the mo file.\n");
+        return -1;
+    }
+
+    fseek(file, 0, SEEK_END);
+
+    long size = ftell(file);
+
+    fclose(file);
+    return size == 0 ? 1 : 0; //! return '1' if empty.
 }

@@ -1,6 +1,4 @@
-
 #include "OPERATOR.h"
-
 
 // ADD player -> Play game -> save to player ->  ready to sort and print list
 

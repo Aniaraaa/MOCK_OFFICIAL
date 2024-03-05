@@ -1,9 +1,10 @@
-#include "DATA.h"
+#include "FILE.h"
 
 #define TRUE 1
 #define NUMBER_OF_GUESS_NUM 4
 #define NUMBER_OF_ROUND 10
-
+#define MAX 9999
+#define MIN 1000
 
 // TODO       INPUT OF THIS HEADER IS "RANDOM NUMBER"
 // TODO       OUT PUT IS "TOTAL OF GUESS"
@@ -12,8 +13,8 @@
 //! --------------CHECK WITH RANDOM NUMBER -----------------
 //*############################################################
 
-void check_random_number(struct Random_number random_number[], int guess_number[])  // * ADD guess_number to compare with random_number 
-                                                                                    //! MOD
+void check_random_number(struct Random_number random_number[], int guess_number[]) // * ADD guess_number to compare with random_number
+                                                                                   //! MOD
 {
     for (int i = 0; i < NUMBER_OF_GUESS_NUM; ++i)
     {
@@ -25,7 +26,8 @@ void check_random_number(struct Random_number random_number[], int guess_number[
         {
             random_number[i].check = TRUE;
         }
-        else;
+        else
+            ;
     }
 }
 
@@ -101,11 +103,11 @@ void separate_number_save_to_array_GUESS(int array[], int guess_number)
 //*############################################################
 
 /*
-* This fucntion use to open guess operator , which user can input guess number
-* then this fucntion going to compare with random random number, with any guess 
-* number is similar with random_number , then reveal random_number , if all random
-* _number is reveal , this fucntion return lucky_ratio, end fucntion.
-*/
+ * This fucntion use to open guess operator , which user can input guess number
+ * then this fucntion going to compare with random random number, with any guess
+ * number is similar with random_number , then reveal random_number , if all random
+ * _number is reveal , this fucntion return lucky_ratio, end fucntion.
+ */
 float run_guess(int random_number)
 {
     struct Random_number random_num_array[NUMBER_OF_GUESS_NUM];
@@ -115,29 +117,35 @@ float run_guess(int random_number)
     for (int i = 0; i < NUMBER_OF_ROUND; ++i)
     {
         int guess_number;
-        int guess_num_array[NUMBER_OF_GUESS_NUM]; //!mod
-    
-        printf("(TOTAL GUESS: %d (LIMIT 10) ENTER NUMBER:\n", total_guess);
+        int guess_num_array[NUMBER_OF_GUESS_NUM];
+
+        printf("TOTAL GUESS: %d PLEASE ENTER NUMBER:\n", total_guess);
         while (1)
         {
-            scanf(" %d", &guess_number);
-            if (guess_number >= 1000 && guess_number <= 9999) //! mod
+            if (scanf("%d", &guess_number) != 1)
             {
-                separate_number_save_to_array_GUESS(guess_num_array,guess_number);
+                printf("MUST ENTER NUMBER\n");
+                while (getchar() != '\n');
+            }
+            else if (guess_number >= MIN && guess_number <= MAX)
+            {
+                separate_number_save_to_array_GUESS(guess_num_array, guess_number);
                 break;
             }
             else
             {
-                printf("MUST >= 1000 AND <= 9999\n"); //! MOD
+                printf("MUST >= 1000 AND <= 9999\n");
                 continue;
             }
         }
-        check_random_number( random_num_array, guess_num_array);
+        check_random_number(random_num_array, guess_num_array);
         reveal_random_number(random_num_array);
-        
+
         if (check_win(random_num_array) == 1)
         {
-            return (float)total_guess/10;
+            float ratio = (float)total_guess / 10;
+            printf("Your Ratio: %.2f\n", ratio);
+            return ratio;
         }
         else
         {
@@ -145,8 +153,6 @@ float run_guess(int random_number)
             continue;
         }
     }
+    printf("Your Ratio: 0.00");
     return 0.00; // DID NOT GUESS A TRUE NUMBER
 }
-
-// ADD comment , add fucntion to separate guess number , fix fucntion guess_number , change name of guess_number, fix fucntion genrate_number in DATA.h
-// Fix File operator.h , 

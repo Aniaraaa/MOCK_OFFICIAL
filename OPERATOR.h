@@ -1,69 +1,40 @@
 #include "RETURN_TOTAL_GUESS.h"
 
 
-#define PR_MENU printf("PRESS 'start' to start game , 'end' to exit program, 'list' to show score \n");
+#define PR_MENU printf("PRESS \n'start' to start game , \n'end' to exit program, \n'list' to show score, \n'delete' to delete all save user \n");
 #define PR_START printf("PRESS 'yes' to play with new user , 'no' to exit to main menu\n");
 #define PR_ENTER_NAME printf("PLEASE ENTER USER NAME\n");
-
-int count = -1;
-struct User player[100];
-
-void array_sort(struct User temp[])
-{
-    for( int i = 0 ; i <= count ; ++i)
-    {
-        for(int j = 0 ; j < count - i ; ++j)
-        {
-            if(temp[j].ratio > temp[j + 1].ratio)
-            {
-                printf("SWAP\n");
-                swap(&temp[j] ,&temp[j + 1]);
-            }
-        }
-    }
-}
-
-void print_list()
-{
-    if(count == -1)
-    {
-        printf("NO PLAYER ADDED\n");
-    }
-    
-    struct User temp[count + 1];
-    for(int i = 0 ; i <= count; ++i)
-    {
-        temp[i] = player[i];
-    }
-    array_sort(temp);
-    for(int i = 0 ; i <= count; ++i)
-    {
-        printf("___________\n");
-        printf("NAME: %s\n",temp[i].name);
-        printf("RATIO: %.2f\n",temp[i].ratio);
-    }
-}
-
+#define PR_INVALID printf("INVALID INSTRUCTION\n");
+#define PR_EMPTY_FILE printf("NO USER FOUND\n");
+#define PR_DELETE printf("ALL USER REMOVED\n");
 void start_operator()
 {
     char option[10];
     while (1)
     {
         PR_START
-
         scanf(" %[^\n]",option);
+
         if (strcmp(option,"yes") == 0)
         {
-            ++count;
             PR_ENTER_NAME
             char name[20];
-            scanf("%s",name);
-
-            strcpy(player[count].name,name);
-
+            while(1)
+            {
+                scanf(" %[^\n]",name);
+                if(is_valid_name(name) == 0)
+                {
+                    continue;
+                }
+                else if(is_valid_name(name) == 1)
+                {
+                    break;
+                }
+                else;
+            }
             int random = generate_number();
-
-            player[count].ratio = run_guess(7007); //! MOD
+            float ratio =  run_guess(random);
+            input_user_to_file(name,ratio);
             return;
         }
         else if (strcmp(option,"no") == 0)
@@ -72,7 +43,7 @@ void start_operator()
         }
         else
         {
-            printf("INVALID_INSTRUCTION\n");
+            PR_INVALID
             continue;
         }
     }
@@ -80,17 +51,12 @@ void start_operator()
 
 void menu_operator()
 {
-    // TODO      Create Menu for user:
-    // TODO       START GAME + END GAME + SCORE SHOW
-    // TODO       START GAME -> Enter user name -> Play game
-    // TODO       END GAME   -> Exit Program
-    // TODO       SCORE SHOW -> Show list of user guest ratio from low to high
     char option[10];
     while (1)
     {
         PR_MENU
 
-        scanf(" %[^\n]",option);
+        scanf(" %s",option);
         if (strcmp(option,"start") == 0)
         {
             start_operator();
@@ -101,12 +67,32 @@ void menu_operator()
         }
         else if(strcmp(option,"list") == 0)
         {
-            print_list();
+            if(is_file_empty() == 1)
+            {
+                PR_EMPTY_FILE
+            }
+            else
+            {
+            int number = get_last_number_from_file();
+            print_player_with_sort(number);
+            }
+        }
+        else if(strcmp(option, "delete") == 0)
+        {
+            clear_file();
+            PR_DELETE
         }
         else
         {
-            printf("INVALID_INSTRUCTION\n");
+            PR_INVALID
             continue;
         }
     }
 }
+
+// DELETE ARRAY OF USER , EXCHANGE WITH FILE_HANDLE
+// DELETE ARRAY SORT AND PRINT_LIST() FUNCTION
+// Fix type
+// ADD Check_valid_name_input from user
+// DECORATE LITLE BIT
+// add fucntion check empty file
