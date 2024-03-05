@@ -1,6 +1,12 @@
 #include <stdio.h>
 
+
+// ! FILE HANDLE
+// ! ONLY NEED FILE PATH TO PRINT USER 
+//!  ONLY NEED FILE PATH TO GET USER
+
 char *path = "C:/Users/Aniara/Desktop/MOCK_OFFICIAL/file_handle.txt";
+#define MAX_USER_PRINT 5
 
 //! STANDARD STRUCT , DID'NT CHANGE
 struct User
@@ -59,10 +65,15 @@ int get_last_number_from_file()
         last_number = user.number;
     }
     fclose(file);
-    return last_number; // ! Giá trị cuối cùng trong file.
+    return last_number + 1; // ! Giá trị cuối cùng trong file.
 }
 
-// TODO ----------------------------------FUNCTION TO ADD USER TO FILE , WITH "APPEND" MODE (ADD MORE , NOT DELETE PREVIOUS USER)----------------------------------------------
+//*############################################################
+//! --------------FUCNTION TO ADD USER TO FILE-----------------
+//*############################################################
+// NOTE FUNCTION TO ADD USER TO FILE , WITH "APPEND" MODE (ADD MORE , NOT DELETE PREVIOUS USER).
+// NOTE Input is struct User with infomation
+
 void write_user_to_file(struct User user) // * AGRUMENT IS USER.
 {
     FILE *file = fopen(path, "a");
@@ -76,6 +87,10 @@ void write_user_to_file(struct User user) // * AGRUMENT IS USER.
     fprintf(file, "%s %f %d", user.name, user.ratio, user.number);
     fclose(file);
 }
+
+//*############################################################
+//! --------------Kind of TESTING -----------------
+//*############################################################
 
 void type_user() //* FUNCTION TO TYPE AND SAVE USER TO STRUCT "TEMP"
 {
@@ -101,6 +116,49 @@ void clear_file()
     else
     {
         printf("CANT OPEN FILE\n");
+    }
+}
+
+//*############################################################
+//! -------FUCNTION TO GET USER TO FILE AND SORT TOP 5---------
+//*############################################################
+
+// ! SORT ELEMENT FUCNTION
+void selection_sort(struct User arr[],int last_number)
+{
+    for(int i = 0; i < last_number - 1 ; ++i)
+    {
+        float min = arr[i].ratio;
+        for(int j = i + 1; j < last_number; ++j)
+        {
+            if(arr[j].ratio < min)
+            {
+                struct User temp = arr[j];
+                arr[j] = arr[i];
+                arr[i] = temp;
+            }
+        }
+    }
+}
+// ! PRINT LIST FUCNTION
+void print_player_with_sort(int last_number)
+{
+    struct User temp[last_number];
+    get_all_user_from_file_to_array(temp,last_number);
+    selection_sort(temp,last_number);
+    int top_five = 5;
+    if(last_number > 5)
+    {
+        top_five = last_number - top_five;
+    }
+    else
+    {
+        top_five = 0;
+    }
+    for(int i = last_number - 1; i >=  top_five ; --i)
+    {
+        printf("%s\n", temp[i].name);
+        printf("%.2f\n", temp[i].ratio);
     }
 }
 
@@ -134,6 +192,12 @@ while(1)
 }
 */
 // TODO Clear File
+/*
 clear_file();
     return 0;
+*/
+int n = get_last_number_from_file();
+print_player_with_sort(n);
+
+return 0;
 }
