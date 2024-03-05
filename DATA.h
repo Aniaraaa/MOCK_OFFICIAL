@@ -16,12 +16,13 @@ struct User
 {
     char name[20];
     float ratio;
+    int number;
 };
 
-int generate_number()
+int generate_number() // !mod
 {
     srand(time(NULL));
-    int result = rand() % 9000;
+    int result = (rand() % 9000) + 1000;
     return result;
 }
 

@@ -60,8 +60,10 @@ void start_operator()
             scanf("%s",name);
 
             strcpy(player[count].name,name);
+
             int random = generate_number();
-            player[count].ratio = (float)(6 - guess_number(random))/6;
+
+            player[count].ratio = run_guess(7007); //! MOD
             return;
         }
         else if (strcmp(option,"no") == 0)
