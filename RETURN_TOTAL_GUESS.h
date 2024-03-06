@@ -13,8 +13,12 @@
 //! --------------CHECK WITH RANDOM NUMBER -----------------
 //*############################################################
 
-void check_random_number(struct Random_number random_number[], int guess_number[]) // * ADD guess_number to compare with random_number
-                                                                                   //! MOD
+/* 
+* This fucntion featured a function to check a guess number
+* with a random number
+*/ 
+
+void check_random_number(struct Random_number random_number[], int guess_number[])                                                                              
 {
     for (int i = 0; i < NUMBER_OF_GUESS_NUM; ++i)
     {
@@ -26,14 +30,18 @@ void check_random_number(struct Random_number random_number[], int guess_number[
         {
             random_number[i].check = TRUE;
         }
-        else
-            ;
+        else;
     }
 }
 
 //*############################################################
 //! -----------------REVEAL RANDOM NUMBER --------------------
 //*############################################################
+
+/* 
+* This fucntion featured a function to print out a revealed random number
+* when playing
+*/ 
 
 void reveal_random_number(struct Random_number random_number[])
 {
@@ -54,6 +62,11 @@ void reveal_random_number(struct Random_number random_number[])
 //*############################################################
 //! -------------------CHECK IF USER WIN ----------------------
 //*############################################################
+
+/* 
+* This fucntion featured a function to check if User is guess a right
+* random number , if yes it will return 1.
+*/ 
 
 int check_win(struct Random_number random_number[])
 {
@@ -78,6 +91,12 @@ int check_win(struct Random_number random_number[])
 //*############################################################
 //! ------------TO SEPARATE NUMBER SAVE TO ARRAY--------------
 //*############################################################
+
+/* 
+* This fucntion featured a function 1 and 2 . 1 and 2 is use to
+* take a guess number and random number , separate is to each number
+* then save to array. 
+*/ 
 
 // TODO FUCNTION 1
 void separate_number_save_to_array_RANDOM(struct Random_number array[], int random_number)

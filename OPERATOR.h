@@ -7,6 +7,17 @@
 #define PR_INVALID printf("INVALID INSTRUCTION\n");
 #define PR_EMPTY_FILE printf("NO USER FOUND\n");
 #define PR_DELETE printf("ALL USER REMOVED\n");
+
+//*############################################################
+//! ----------------FUCNTION START OPERATOR--------------------
+//*############################################################
+
+/* 
+* This fucntion featured a choice for user just after 
+* user start game from main menu . User can choose "YES"
+* to begin play game or "NO" to go back to main menu
+*/ 
+
 void start_operator()
 {
     char option[10];
@@ -48,6 +59,20 @@ void start_operator()
         }
     }
 }
+
+//*############################################################
+//! ----------------MAIN MENU OPERATOR--------------------
+//*############################################################
+
+/* 
+* This fucntion featured a choice for user in begin of program
+* In main menu user has 4 option to choose , enter :
+* 'list' for print top 5 user score
+* 'start' for begin to play game
+* 'end' to exit program completely
+* 'delete' to remove all user score
+*/ 
+
 
 void menu_operator()
 {
