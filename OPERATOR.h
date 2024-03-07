@@ -88,6 +88,7 @@ void menu_operator()
         }
         else if ((strcmp(option,"end") == 0))
         {
+            printf("END PROGRAM \a");
             return;
         }
         else if(strcmp(option,"list") == 0)

@@ -2,7 +2,7 @@
 
 #define TRUE 1
 #define NUMBER_OF_GUESS_NUM 4
-#define NUMBER_OF_ROUND 10
+#define NUMBER_OF_ROUND 100
 #define MAX 9999
 #define MIN 1000
 
@@ -132,7 +132,7 @@ float run_guess(int random_number)
     struct Random_number random_num_array[NUMBER_OF_GUESS_NUM];
 
     separate_number_save_to_array_RANDOM(random_num_array, random_number);
-    int total_guess = 10;
+    int total_guess = 1;
     for (int i = 0; i < NUMBER_OF_ROUND; ++i)
     {
         int guess_number;
@@ -162,13 +162,13 @@ float run_guess(int random_number)
 
         if (check_win(random_num_array) == 1)
         {
-            float ratio = (float)total_guess / 10;
+            float ratio = 1 / (float)(total_guess);
             printf("Your Ratio: %.2f\n", ratio);
             return ratio;
         }
         else
         {
-            --total_guess;
+            ++total_guess;
             continue;
         }
     }

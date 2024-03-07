@@ -13,7 +13,6 @@
 * Type 'end' to exit program
 */
 
-
 int main()
 {
     menu_operator();

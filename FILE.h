@@ -43,7 +43,6 @@ void get_all_user_from_file_to_array(struct User temp[], int last_number) // Tem
 * from save file and return that number.
 */ 
 
-
 int get_last_number_from_file()
 {
     FILE *file = fopen(path, "r"); // ! OPEN FILE IN READ MODE
@@ -141,29 +140,35 @@ void clear_file()
 //*############################################################
 //! -------FUCNTION TO GET USER TO FILE AND SORT TOP 5---------
 //*############################################################
-
 /* 
 * This fucntion featured a function to sort all User from
 * input array of User , sorting a highest ratio user to
 * lowest ratio user
 */ 
 
-void selection_sort(struct User arr[],int last_number)
+void selection_sort(struct User arr[], int last_number)
 {
-    for(int i = 0; i < last_number - 1 ; ++i)
+    for(int i = 0; i < last_number - 1; ++i)
     {
         float min = arr[i].ratio;
+        int min_index = i; 
         for(int j = i + 1; j < last_number; ++j)
         {
             if(arr[j].ratio < min)
             {
-                struct User temp = arr[j];
-                arr[j] = arr[i];
-                arr[i] = temp;
+                min = arr[j].ratio;
+                min_index = j; 
             }
+        }
+        if(min_index != i)
+        {
+            struct User temp = arr[min_index];
+            arr[min_index] = arr[i];
+            arr[i] = temp;
         }
     }
 }
+
 //*############################################################
 //! ---------------SORT AND PRINT LIST FUCNTION----------------
 //*############################################################
@@ -178,22 +183,23 @@ void print_player_with_sort(int last_number)
     struct User temp[last_number];
     get_all_user_from_file_to_array(temp,last_number);
     selection_sort(temp,last_number);
-    int top_five = 5;
+    int top_five;
     if(last_number > 5)
     {
-        top_five = last_number - top_five;
+        top_five = last_number - 5;
     }
     else
     {
         top_five = 0;
     }
-    for(int i = last_number - 1; i >=  top_five ; --i)
+    int j = 1;
+    for(int i = last_number - 1; i >= top_five; --i)
     {
-        printf("__________\n");
-        printf("NAME :%s\n", temp[i].name);
-        printf("RATIO:%.2f\n", temp[i].ratio);
-        printf("----------\n");
+        printf("|TOP %d: %.2f %s|\t",j,temp[i].ratio,temp[i].name);
+        ++j;
     }
+    printf("\n");
+
 }
 
 //*############################################################
