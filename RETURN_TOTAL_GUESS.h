@@ -163,7 +163,7 @@ float run_guess(int random_number)
         if (check_win(random_num_array) == 1)
         {
             float ratio = 1 / (float)(total_guess);
-            printf("Your Ratio: %.2f\n", ratio);
+            printf("\t\t\t|Your Ratio: %.2f|\n", ratio);
             return ratio;
         }
         else
@@ -172,6 +172,6 @@ float run_guess(int random_number)
             continue;
         }
     }
-    printf("Your Ratio: 0.00");
+    printf("\t\t\t|Your Ratio: 0.00|\n");
     return 0.00; // DID NOT GUESS A TRUE NUMBER
 }

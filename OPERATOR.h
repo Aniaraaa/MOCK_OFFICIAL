@@ -5,8 +5,8 @@
 #define PR_START printf("PRESS 'yes' to play with new user , 'no' to exit to main menu\n");
 #define PR_ENTER_NAME printf("PLEASE ENTER USER NAME\n");
 #define PR_INVALID printf("INVALID INSTRUCTION\n");
-#define PR_EMPTY_FILE printf("NO USER FOUND\n");
-#define PR_DELETE printf("ALL USER REMOVED\n");
+#define PR_EMPTY_FILE printf("\t\t\t|NO USER FOUND|\n");
+#define PR_DELETE printf("\t\t\t|ALL USER REMOVED|\n");
 
 //*############################################################
 //! ----------------FUCNTION START OPERATOR--------------------
@@ -88,7 +88,7 @@ void menu_operator()
         }
         else if ((strcmp(option,"end") == 0))
         {
-            printf("END PROGRAM \a");
+            printf("\n\n|END PROGRAM|\n\n");
             return;
         }
         else if(strcmp(option,"list") == 0)

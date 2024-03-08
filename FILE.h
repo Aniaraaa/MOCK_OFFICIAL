@@ -1,6 +1,6 @@
 #include "DATA.h"
 
-char *path = "C:/Users/Aniara/Desktop/MOCK_OFFICIAL/SAVE.txt";
+char *path = "SAVE.txt";
 
 #define MAX_USER_PRINT 5
 
@@ -193,12 +193,13 @@ void print_player_with_sort(int last_number)
         top_five = 0;
     }
     int j = 1;
+    printf("\n\n");
     for(int i = last_number - 1; i >= top_five; --i)
     {
         printf("|TOP %d: %.2f %s|\t",j,temp[i].ratio,temp[i].name);
         ++j;
     }
-    printf("\n");
+    printf("\n\n");
 
 }
 
@@ -215,7 +216,7 @@ int is_file_empty()
     FILE *file = fopen(path, "r");
     if (file == NULL)
     {
-        printf("Khong the mo file.\n");
+        printf("CANT OPEN FILE.\n");
         return -1;
     }
 
